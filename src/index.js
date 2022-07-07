@@ -13,7 +13,7 @@ window.onload = function () {
 
 	const isLocalhost = window.location.hostname === "localhost";
 
-	const msg = isLocalhost ? "App running as localhost" : "App running in an external server: " + window.location.hostname;
+	const msg = isLocalhost ? "APP running as localhost" : "APP running in an external server: " + window.location.hostname;
 	console.log(msg);
 
 	new InitialOptions(isLocalhost);
