@@ -31,7 +31,6 @@ export default class ControlPanel {
             return;
         this.isActive = true;
 
-
         this.container = document.createElement("div");
         this.container.className = "middle";
         document.getElementById(networkHTML.controlPanelParentContainer).appendChild(this.container);

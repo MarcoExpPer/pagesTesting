@@ -18,17 +18,25 @@ export default class InitialOptions {
 
     /**
      * Constructor of the class
+     * @param {Boolean} isLocalhost check if the App is running in localhost
      */
-    constructor() {
+    constructor(isLocalhost) {
+        
         this.localURL = "../data/";
         this.githubURL = "https://raw.githubusercontent.com/gjimenezUCM/SPICE-visualization/main/data/";
-        
+
+        if(isLocalhost){
+            this.currentURL = this.localURL;
+        }else{
+            this.currentURL = this.githubURL;
+        }
+
         this.domParser = new DOMParser();
-        this.requestManager = new RequestManager(this.githubURL);
+        this.requestManager = new RequestManager(this.currentURL);
         this.networkManager = new NetworksGroup();
         this.controlPanel = new ControlPanel(this.networkManager);
 
-        const radioButtons = this.createRadioOptions();
+        const radioButtons = this.createRadioOptions(isLocalhost);
         this.createHTMLSkeleton(radioButtons);
         this.addRadioOnclick();
 
@@ -39,19 +47,33 @@ export default class InitialOptions {
      * Create a html string with radio buttons to choose the baseURL of the request manager
      * @returns {String} returns the html string
      */
-    createRadioOptions() {
-        const html = `
+    createRadioOptions(isLocalhost) {
+        if(isLocalhost){
+            const html = `
             <div>
-                <input type="radio" name="source" value="local" checked="true" id="radioLocal">
+                <input type="radio" name="source" value="local" checked="${isLocalhost}" id="radioLocal">
                 <label class="unselectable" for="radioLocal">Local files </label>
             </div>
             <div>
                 <input type="radio" name="source" value="githubMain" id="radioGithubMain">
                 <label class="unselectable" for="radioGithubMain"> Github Main </label>
+            </div>`;
+            return html;
+        }else{
+            const html = `
+            <div>
+                <input type="radio" name="source" value="local"  id="radioLocal">
+                <label class="unselectable" for="radioLocal">Local files </label>
             </div>
-        `;
+            <div>
+                <input type="radio" name="source" value="githubMain" checked="${!isLocalhost}" id="radioGithubMain">
+                <label class="unselectable" for="radioGithubMain"> Github Main </label>
+            </div>`;
+            return html;
+        }
+        
 
-        return html;
+        
     }
 
     /**
