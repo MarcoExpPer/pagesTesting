@@ -24,7 +24,7 @@ export default class InitialOptions {
         this.githubURL = "https://raw.githubusercontent.com/gjimenezUCM/SPICE-visualization/main/data/";
 
         this.domParser = new DOMParser();
-        this.requestManager = new RequestManager(this.localURL);
+        this.requestManager = new RequestManager(this.githubURL);
         this.networkManager = new NetworksGroup();
         this.controlPanel = new ControlPanel(this.networkManager);
 
