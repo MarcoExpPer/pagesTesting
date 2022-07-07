@@ -10,7 +10,11 @@ import InitialOptions from "./initialOptions.js";
 
 
 window.onload = function () {
-	console.log("a");
+	if(window.location.hostname === "localhost"){
+		console.log("App running as localhost")
+	}else{
+		console.log("App running in an external server: " + window.location.hostname)
+	}
 	new InitialOptions();
 }
 
