@@ -21,18 +21,14 @@ export default class InitialOptions {
      * @param {Boolean} isLocalhost check if the App is running in localhost
      */
     constructor(isLocalhost) {
-        
+
         this.localURL = "../data/";
         this.githubURL = "https://raw.githubusercontent.com/gjimenezUCM/SPICE-visualization/main/data/";
 
-        if(isLocalhost){
-            this.currentURL = this.localURL;
-        }else{
-            this.currentURL = this.githubURL;
-        }
+        let currentURL = isLocalhost ? this.localURL : this.githubURL;
 
         this.domParser = new DOMParser();
-        this.requestManager = new RequestManager(this.currentURL);
+        this.requestManager = new RequestManager(currentURL);
         this.networkManager = new NetworksGroup();
         this.controlPanel = new ControlPanel(this.networkManager);
 
@@ -48,32 +44,16 @@ export default class InitialOptions {
      * @returns {String} returns the html string
      */
     createRadioOptions(isLocalhost) {
-        if(isLocalhost){
-            const html = `
-            <div>
-                <input type="radio" name="source" value="local" checked="${isLocalhost}" id="radioLocal">
-                <label class="unselectable" for="radioLocal">Local files </label>
-            </div>
-            <div>
-                <input type="radio" name="source" value="githubMain" id="radioGithubMain">
-                <label class="unselectable" for="radioGithubMain"> Github Main </label>
-            </div>`;
-            return html;
-        }else{
-            const html = `
-            <div>
-                <input type="radio" name="source" value="local"  id="radioLocal">
-                <label class="unselectable" for="radioLocal">Local files </label>
-            </div>
-            <div>
-                <input type="radio" name="source" value="githubMain" checked="${!isLocalhost}" id="radioGithubMain">
-                <label class="unselectable" for="radioGithubMain"> Github Main </label>
-            </div>`;
-            return html;
-        }
-        
-
-        
+        const html = `
+        <div>
+            <input type="radio" name="source" value="local" ${isLocalhost ? `checked="true"` : ""} id="radioLocal">
+            <label class="unselectable" for="radioLocal">Local files </label>
+        </div>
+        <div>
+            <input type="radio" name="source" value="githubMain" ${!isLocalhost ? `checked="true"` : ""} id="radioGithubMain">
+            <label class="unselectable" for="radioGithubMain"> Github Main </label>
+        </div>`;
+        return html;
     }
 
     /**
