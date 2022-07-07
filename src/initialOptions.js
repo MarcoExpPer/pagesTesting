@@ -21,7 +21,6 @@ export default class InitialOptions {
      * @param {Boolean} isLocalhost check if the App is running in localhost
      */
     constructor(isLocalhost) {
-
         this.localURL = "../data/";
         this.githubURL = "https://raw.githubusercontent.com/gjimenezUCM/SPICE-visualization/main/data/";
 
@@ -32,7 +31,7 @@ export default class InitialOptions {
         this.networkManager = new NetworksGroup();
         this.controlPanel = new ControlPanel(this.networkManager);
 
-        const radioButtons = this.createRadioOptions(isLocalhost);
+        const radioButtons = this.createRadioOptions(currentURL);
         this.createHTMLSkeleton(radioButtons);
         this.addRadioOnclick();
 
@@ -63,8 +62,8 @@ export default class InitialOptions {
         const htmlString = `
         <div>
             <div class="row"> 
-                <div class="col-sm-4"> </div>
-                <div class="col-sm-2"> 
+                <div class="col-sm-5"> </div>
+                <div class="col-sm-1"> 
                     ${radioButtons}
                 </div>
                 <div class="col" id="${networkHTML.algorithmDropdownContainer}"> 
