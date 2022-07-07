@@ -10,6 +10,7 @@ import InitialOptions from "./initialOptions.js";
 
 
 window.onload = function () {
+	console.log("a");
 	new InitialOptions();
 }
 
